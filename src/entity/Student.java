@@ -1,16 +1,19 @@
 package entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity ( name = "student_table" )
 public class Student {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue ( strategy = GenerationType.AUTO, generator = "student_sequence" ) /* default */
+    @SequenceGenerator(
+            name = "student_sequence",
+            initialValue = 1,    // default value 1
+            sequenceName = "st_seq",
+            allocationSize = 1  // increment deference
+    )
     @Column ( name = "id" )
     private long studentId;
 
