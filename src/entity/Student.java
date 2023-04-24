@@ -7,13 +7,7 @@ import javax.persistence.*;
 public class Student {
 
     @Id
-    @GeneratedValue ( strategy = GenerationType.AUTO, generator = "student_sequence" ) /* default */
-    @SequenceGenerator(
-            name = "student_sequence",
-            initialValue = 1,    // default value 1
-            sequenceName = "st_seq",
-            allocationSize = 1  // increment deference
-    )
+    @GeneratedValue ( strategy = GenerationType.SEQUENCE ) /* default */
     @Column ( name = "id" )
     private long studentId;
 
@@ -21,12 +15,24 @@ public class Student {
     @Column ( name = "student_name", length = 50, nullable = false )
     private String name;
 
-    public Student() {
-    }
 
-    public Student(long studentId, String name) {
+    @Column ( length = 45, nullable = false)
+    private String country;
+
+    @Column ( length = 45, nullable = false)
+    private String city;
+
+    private int postal;
+
+    public Student(long studentId, String name, String country, String city, int postal) {
         this.studentId = studentId;
         this.name = name;
+        this.country = country;
+        this.city = city;
+        this.postal = postal;
+    }
+
+    public Student() {
     }
 
     public long getStudentId() {
@@ -45,11 +51,27 @@ public class Student {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "studentId=" + studentId +
-                ", name='" + name + '\'' +
-                '}';
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getPostal() {
+        return postal;
+    }
+
+    public void setPostal(int postal) {
+        this.postal = postal;
     }
 }
