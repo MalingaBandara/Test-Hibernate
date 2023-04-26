@@ -3,16 +3,25 @@ import entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Arrays;
+
 public class AppInitializer {
 
     public static void main(String[] args) {
 
-        Address residentailAddress = new Address( "Sri Lanka", "Colombo", 1500 ); // Residential Address
+        Address address1 = new Address( "Sri Lanka", "Colombo", 1500 ); //  Address 1
+        Address address2 = new Address( "USA", "South Carolina", 44530 ); //  Address 2
+        Address address3 = new Address( "Sri Lanka", "Kandy", 5030 ); //    Address 3
 
-        Address premanetAddress = new Address( "Sri Lanka", "Kandy", 5030 ); // Permanent Address
+        /*ArrayList list = new ArrayList<>();
+                list.add( address1 );
+                list.add( address2 );
+                list.add( address3 );*/
 
+        Student student1 = new Student();
 
-        Student student1 = new Student( 1, "Sanath", residentailAddress, premanetAddress );
+        student1.setName( "Nimal" );
+        student1.setAddressList(Arrays.asList( address1, address2, address3 ) ); // student1.setAddressList( list )
 
         saveStudnet( student1 );
 

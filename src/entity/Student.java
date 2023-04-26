@@ -1,6 +1,12 @@
 package entity;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Entity ( name = "student_table" )
@@ -16,35 +22,25 @@ public class Student {
     private String name;
 
 
-    @Embedded
-    @AttributeOverrides(  value = {
+    @ElementCollection
+    @JoinTable (
+            name = "address_table",
+            joinColumns = @JoinColumn( name = "student_id", referencedColumnName = "id")
+    )
 
-                        @AttributeOverride( column = @Column (name = "residentail_country"), name = "country" ),
-                        @AttributeOverride( column = @Column (name = "residentail_city"), name = "city" ),
-                        @AttributeOverride( column = @Column (name = "residentail_postal"), name = "postal" )
+    @GenericGenerator( name = "address_sequence", strategy = "sequence" ) // auto generate values
 
-    })
-    private Address residentailAddress;
+    @CollectionId( columns = @Column( name = "address_id" ), generator = "address_sequence", type = @Type(type = "int") ) // set collection primary key
+    private Collection<Address> addressList = new ArrayList<>();
 
-    @Embedded
-    @AttributeOverrides(  value = {
-
-            @AttributeOverride( column = @Column (name = "premanet_country"), name = "country" ),
-            @AttributeOverride( column = @Column (name = "premanet_city"), name = "city" ),
-            @AttributeOverride( column = @Column (name = "premanet_postal"), name = "postal" )
-
-    } )
-    private Address premanetAddress;
-
-
-    public Student(long studentId, String name, Address residentailAddress, Address premanetAddress) {
-        this.studentId = studentId;
-        this.name = name;
-        this.residentailAddress = residentailAddress;
-        this.premanetAddress = premanetAddress;
-    }
 
     public Student() {
+    }
+
+    public Student(long studentId, String name, Collection<Address> addressList) {
+        this.studentId = studentId;
+        this.name = name;
+        this.addressList = addressList;
     }
 
     public long getStudentId() {
@@ -63,19 +59,11 @@ public class Student {
         this.name = name;
     }
 
-    public Address getResidentailAddress() {
-        return residentailAddress;
+    public Collection<Address> getAddressList() {
+        return addressList;
     }
 
-    public void setResidentailAddress(Address residentailAddress) {
-        this.residentailAddress = residentailAddress;
-    }
-
-    public Address getPremanetAddress() {
-        return premanetAddress;
-    }
-
-    public void setPremanetAddress(Address premanetAddress) {
-        this.premanetAddress = premanetAddress;
+    public void setAddressList(Collection<Address> addressList) {
+        this.addressList = addressList;
     }
 }
