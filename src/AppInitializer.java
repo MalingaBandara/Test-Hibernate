@@ -7,9 +7,12 @@ public class AppInitializer {
 
     public static void main(String[] args) {
 
-        Address address1 = new Address( "Sri Lanka", "Colombo", 1500 ); // address
+        Address residentailAddress = new Address( "Sri Lanka", "Colombo", 1500 ); // Residential Address
 
-        Student student1 = new Student( 1, "Sanath", address1 );
+        Address premanetAddress = new Address( "Sri Lanka", "Kandy", 5030 ); // Permanent Address
+
+
+        Student student1 = new Student( 1, "Sanath", residentailAddress, premanetAddress );
 
         saveStudnet( student1 );
 
@@ -17,18 +20,17 @@ public class AppInitializer {
 
     private static void saveStudnet(Student sanath) {
 
-        try ( Session session = HibernateUtill.getSessionFactory().openSession() ) {
+        try (Session session = HibernateUtill.getSessionFactory().openSession()) {
 
             Transaction transaction = session.beginTransaction();
 
-            long saveId = (long) session.save( sanath );
+            long saveId = (long) session.save(sanath);
 
             transaction.commit();
 
-            System.out.println( "Saved Student Primary Key : "  + saveId );
+            System.out.println("Saved Student Primary Key : " + saveId);
 
         }
 
     }
-
 }

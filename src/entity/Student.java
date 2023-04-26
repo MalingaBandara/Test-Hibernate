@@ -17,15 +17,34 @@ public class Student {
 
 
     @Embedded
-    private Address address;
+    @AttributeOverrides(  value = {
 
-    public Student() {
-    }
+                        @AttributeOverride( column = @Column (name = "residentail_country"), name = "country" ),
+                        @AttributeOverride( column = @Column (name = "residentail_city"), name = "city" ),
+                        @AttributeOverride( column = @Column (name = "residentail_postal"), name = "postal" )
 
-    public Student(long studentId, String name, Address address) {
+    })
+    private Address residentailAddress;
+
+    @Embedded
+    @AttributeOverrides(  value = {
+
+            @AttributeOverride( column = @Column (name = "premanet_country"), name = "country" ),
+            @AttributeOverride( column = @Column (name = "premanet_city"), name = "city" ),
+            @AttributeOverride( column = @Column (name = "premanet_postal"), name = "postal" )
+
+    } )
+    private Address premanetAddress;
+
+
+    public Student(long studentId, String name, Address residentailAddress, Address premanetAddress) {
         this.studentId = studentId;
         this.name = name;
-        this.address = address;
+        this.residentailAddress = residentailAddress;
+        this.premanetAddress = premanetAddress;
+    }
+
+    public Student() {
     }
 
     public long getStudentId() {
@@ -44,13 +63,19 @@ public class Student {
         this.name = name;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getResidentailAddress() {
+        return residentailAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setResidentailAddress(Address residentailAddress) {
+        this.residentailAddress = residentailAddress;
     }
 
+    public Address getPremanetAddress() {
+        return premanetAddress;
+    }
 
+    public void setPremanetAddress(Address premanetAddress) {
+        this.premanetAddress = premanetAddress;
+    }
 }
