@@ -49,5 +49,12 @@ public class Address {
         this.postal = postal;
     }
 
-
+    @Override
+    public String toString() {
+        return "Address{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", postal=" + postal +
+                '}';
+    }
 }

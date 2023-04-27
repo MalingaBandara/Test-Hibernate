@@ -22,7 +22,7 @@ public class Student {
     private String name;
 
 
-    @ElementCollection
+    @ElementCollection( fetch = FetchType.EAGER )
     @JoinTable (
             name = "address_table",
             joinColumns = @JoinColumn( name = "student_id", referencedColumnName = "id")
@@ -65,5 +65,14 @@ public class Student {
 
     public void setAddressList(Collection<Address> addressList) {
         this.addressList = addressList;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", name='" + name + '\'' +
+                ", addressList=" + addressList +
+                '}';
     }
 }
