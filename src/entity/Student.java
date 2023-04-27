@@ -15,12 +15,17 @@ public class Student {
     private String name;
 
 
+    private Laptop laptop;
+
+
+
     public Student() {
     }
 
-    public Student(long studentId, String name) {
+    public Student(long studentId, String name, Laptop laptop) {
         this.studentId = studentId;
         this.name = name;
+        this.laptop = laptop;
     }
 
     public long getStudentId() {
@@ -39,11 +44,20 @@ public class Student {
         this.name = name;
     }
 
+    public Laptop getLaptop() {
+        return laptop;
+    }
+
+    public void setLaptop(Laptop laptop) {
+        this.laptop = laptop;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
                 ", name='" + name + '\'' +
+                ", laptop=" + laptop +
                 '}';
     }
 }
