@@ -1,13 +1,6 @@
 package entity;
 
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-
 
 @Entity ( name = "student_table" )
 public class Student {
@@ -22,25 +15,12 @@ public class Student {
     private String name;
 
 
-    @ElementCollection( fetch = FetchType.EAGER )
-    @JoinTable (
-            name = "address_table",
-            joinColumns = @JoinColumn( name = "student_id", referencedColumnName = "id")
-    )
-
-    @GenericGenerator( name = "address_sequence", strategy = "sequence" ) // auto generate values
-
-    @CollectionId( columns = @Column( name = "address_id" ), generator = "address_sequence", type = @Type(type = "int") ) // set collection primary key
-    private Collection<Address> addressList = new ArrayList<>();
-
-
     public Student() {
     }
 
-    public Student(long studentId, String name, Collection<Address> addressList) {
+    public Student(long studentId, String name) {
         this.studentId = studentId;
         this.name = name;
-        this.addressList = addressList;
     }
 
     public long getStudentId() {
@@ -59,20 +39,11 @@ public class Student {
         this.name = name;
     }
 
-    public Collection<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(Collection<Address> addressList) {
-        this.addressList = addressList;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
                 ", name='" + name + '\'' +
-                ", addressList=" + addressList +
                 '}';
     }
 }
