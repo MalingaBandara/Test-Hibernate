@@ -6,11 +6,16 @@ import javax.persistence.*;
 public class Laptop {
 
     @Id
-    @GeneratedValue ( strategy = GenerationType.IDENTITY )
-    @Column ( name = "code" )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "code")
     private long id;
 
     private String brand;
+
+
+    @OneToOne
+    private Student student;
+
 
     public Laptop() {
     }
@@ -36,11 +41,18 @@ public class Laptop {
         this.brand = brand;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
     @Override
     public String toString() {
         return "Laptop{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", brand='" + brand + '\'' +
+                ", student=" + student +
                 '}';
     }
 }
+
+

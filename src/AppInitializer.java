@@ -27,19 +27,17 @@ public class AppInitializer {
     }
 
 
-    private static void saveStudnet( Laptop laptop, Student sanath ) {
+    private static void saveStudnet( Laptop laptop, Student student ) {
 
         try (Session session = HibernateUtill.getSessionFactory().openSession()) {
 
             Transaction transaction = session.beginTransaction();
 
-            long saveLaptopId = (long) session.save( laptop );
-            long saveId = (long) session.save(sanath);
+              session.save( laptop);
+            session.save( student );
+
 
             transaction.commit();
-
-            System.out.println("Saved Student Primary Key : " + saveId);
-            System.out.println("Saved Laptop Primary Key : " + saveLaptopId);
 
         }
 
