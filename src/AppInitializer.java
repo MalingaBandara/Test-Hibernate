@@ -11,7 +11,7 @@ public class AppInitializer {
 
         Student student1 = new Student( 1, "Kamal", laptop );
 
-         saveStudnet( student1 );
+         saveStudnet( laptop, student1 );
 
        //findStudent( 1 );
 
@@ -27,17 +27,19 @@ public class AppInitializer {
     }
 
 
-    private static void saveStudnet(Student sanath) {
+    private static void saveStudnet( Laptop laptop, Student sanath ) {
 
         try (Session session = HibernateUtill.getSessionFactory().openSession()) {
 
             Transaction transaction = session.beginTransaction();
 
+            long saveLaptopId = (long) session.save( laptop );
             long saveId = (long) session.save(sanath);
 
             transaction.commit();
 
             System.out.println("Saved Student Primary Key : " + saveId);
+            System.out.println("Saved Laptop Primary Key : " + saveLaptopId);
 
         }
 

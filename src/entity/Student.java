@@ -15,6 +15,8 @@ public class Student {
     private String name;
 
 
+    @OneToOne ( cascade = CascadeType.ALL )
+    @JoinColumn( name = "laptop_id" )
     private Laptop laptop;
 
 
